@@ -11,10 +11,10 @@ export default function Index() {
       }}
     >
       <Text className="font-bold text-3xl my-10 font-rubik">Welcome to the app!</Text>
-      <Link href="/sign-in">Sign In</Link>
-      <Link href="/explore">Explore</Link>
-      <Link href="/profile">Profile</Link>
-      <Link href="/properties/1">Property</Link>
+      <Link href="/sign-in"><Text>Sign In</Text></Link>
+      <Link href="/explore"><Text>Explore</Text></Link>
+      <Link href="/profile"><Text>Profile</Text></Link>
+      <Link href="/properties/1"><Text>Property</Text></Link>
     </View>
   );
 }
