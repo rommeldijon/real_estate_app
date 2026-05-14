@@ -1,7 +1,9 @@
-{
+﻿{
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "typescript.tsconfig.enableProjectDiagnostics": false,
+  "javascript.tsconfig.enableProjectDiagnostics": false
 }
