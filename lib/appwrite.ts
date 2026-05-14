@@ -106,7 +106,7 @@ export async function getCurrentUser() {
         }
         
     } catch (error) {
-        console.error(error);
+        // Silently handle authentication errors (expected when user is not logged in)
         return null;
     }
 }

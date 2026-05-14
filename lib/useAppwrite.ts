@@ -34,8 +34,18 @@ export const useAppwrite = <T, P extends Record<string, string | number>>({
       } catch (err: unknown) {
         const errorMessage =
           err instanceof Error ? err.message : "An unknown error occurred";
+        
+        // Don't show alert for authentication errors (expected when not logged in)
+        // For getCurrentUser function, always suppress errors since 401 is expected
+        const isAuthError = errorMessage.includes('missing scopes') || 
+                           errorMessage.includes('401') ||
+                           fn.name === 'getCurrentUser';
+        
+        if (!isAuthError) {
+          Alert.alert("Error", errorMessage);
+        }
+        
         setError(errorMessage);
-        Alert.alert("Error", errorMessage);
       } finally {
         setLoading(false);
       }
