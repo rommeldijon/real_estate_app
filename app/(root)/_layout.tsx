@@ -1,10 +1,10 @@
 import { useGlobalContext } from "@/lib/global-provider";
-import { Redirect } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import React from "react";
 import { ActivityIndicator, SafeAreaView } from "react-native";
 
 export default function AppLayout() {
-    const { loading, isLoggedIn } = useGlobalContext();
+    const { loading, isLogged } = useGlobalContext();
 
     if (loading) {
         return (
@@ -15,8 +15,9 @@ export default function AppLayout() {
         )
     }
 
-    if (!isLoggedIn) {
+    if (!isLogged) {
         return <Redirect href="/sign-in" />
 
     }
+     return <Slot />;
 }
