@@ -3,7 +3,7 @@ import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { Account, Avatars, Client, OAuthProvider } from 'react-native-appwrite';
 
-const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ??
+/*const endpoint = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ??
   process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT ??
   (Constants.expoConfig?.extra as Record<string, string> | undefined)?.NEXT_PUBLIC_APPWRITE_ENDPOINT ??
   (Constants.expoConfig?.extra as Record<string, string> | undefined)?.EXPO_PUBLIC_APPWRITE_ENDPOINT ??
@@ -25,27 +25,27 @@ if (!projectId || typeof projectId !== 'string' || projectId.trim().length === 0
   throw new Error(
     'Appwrite project ID is missing or invalid. Set EXPO_PUBLIC_APPWRITE_PROJECT_ID or NEXT_PUBLIC_APPWRITE_PROJECT_ID in your environment or expo config.'
   );
-}
+}*/
 
 export const config = {
   platform: 'com.talinosolutions.realestate',
-  endpoint,
-  projectId,
-};
+  endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
+  projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
+}
 
 export const client = new Client();
 
 client
-  .setEndpoint(config.endpoint)
-  .setProject(config.projectId)
-  .setPlatform(config.platform);
+  .setEndpoint(config.endpoint!)
+  .setProject(config.projectId!)
+  .setPlatform(config.platform!)
 
 export const avatar = new Avatars(client);
 export const account = new Account(client);
 
 export async function login() {
     try {
-        const redirectUri = Linking.createURL('/');
+        const redirectUri = Linking.createURL(path:'/');
 
         const response = await account.createOAuth2Token(
             OAuthProvider.Google,
@@ -59,7 +59,7 @@ export async function login() {
             redirectUri
         );
 
-        if (!browserResult || browserResult.type !== 'success' || !browserResult.url) {
+        if (browserResult.type !== 'success') {
             throw new Error('Failed to login');
         }
 
@@ -85,7 +85,7 @@ export async function login() {
 
 export async function logout() {
     try {
-        await account.deleteSessions();
+        await account.deleteSessions(sessionId:'current');
         return true;
     } catch (error) {
         console.error(error);
@@ -106,7 +106,7 @@ export async function getCurrentUser() {
         }
         
     } catch (error) {
-        // Silently handle authentication errors (expected when user is not logged in)
+        console.error(error);
         return null;
     }
 }
