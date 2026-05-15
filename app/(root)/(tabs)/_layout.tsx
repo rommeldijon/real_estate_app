@@ -2,11 +2,11 @@ import { Tabs } from 'expo-router'
 import React from 'react'
 import { Text, View } from 'react-native'
 
-import { Image } from 'expo-image'
 import icons from '@/constants/icons'
+import { Image } from 'expo-image'
 
 const TabIcon = ({ focused, icon, title}: { focused: boolean;
-    icon: any; tiitle: string}) => (
+    icon: any; title: string}) => (
         <View className="flex-1 mt-3 flex flex-col items-center">
             <Image source={icon} tintColor={focused?'#0061FF':
                 '#666876'} resizeMode="contain" className="size-6"/>
@@ -38,7 +38,7 @@ const TabsLayout = () => {
             headerShown: false,
             tabBarIcon: ({ focused }) => (
                 <TabIcon icon={icons.home}
-                focused={focused} title="Home/>
+                focused={focused} title="Home"/>
             )
           }}
         />
