@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
 import { Account, Avatars, Client, OAuthProvider } from 'react-native-appwrite';
@@ -45,7 +44,7 @@ export const account = new Account(client);
 
 export async function login() {
     try {
-        const redirectUri = Linking.createURL(path:'/');
+        const redirectUri = Linking.createURL('/');
 
         const response = await account.createOAuth2Token(
             OAuthProvider.Google,
@@ -85,7 +84,7 @@ export async function login() {
 
 export async function logout() {
     try {
-        await account.deleteSessions(sessionId:'current');
+        const result = await account.deleteSession('current');
         return true;
     } catch (error) {
         console.error(error);
